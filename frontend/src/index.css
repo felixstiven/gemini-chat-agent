@@ -1,0 +1,126 @@
+/**
+ * 🎨 ESTILOS GLOBALES Y VARIABLES CSS
+ * ====================================
+ * 
+ * Este archivo define:
+ * - Reset CSS básico
+ * - Variables de color (tema)
+ * - Estilos globales
+ */
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Variables CSS (Tema Claro) */
+:root {
+    /* Colores principales */
+    --primary-color: #667eea;
+    --primary-color-dark: #5568d3;
+    --primary-color-alpha: rgba(102, 126, 234, 0.1);
+
+    /* Backgrounds */
+    --window-bg: #ffffff;
+    --header-bg: #ffffff;
+    --messages-bg: #f7f9fc;
+    --input-container-bg: #ffffff;
+    --input-bg: #ffffff;
+    --hover-bg: #f0f0f0;
+
+    /* Mensajes */
+    --user-message-bg: #667eea;
+    --user-message-color: #ffffff;
+    --agent-message-bg: #e9ecef;
+    --agent-message-color: #2d3748;
+
+    /* Avatar */
+    --avatar-bg: #f0f0f0;
+
+    /* Bordes */
+    --border-color: #e2e8f0;
+    --input-border: #e2e8f0;
+
+    /* Texto */
+    --text-color: #2d3748;
+    --timestamp-color: #718096;
+
+    /* Scrollbar */
+    --scrollbar-track: #f1f1f1;
+    --scrollbar-thumb: #cbd5e0;
+    --scrollbar-thumb-hover: #a0aec0;
+
+    /* Typing indicator */
+    --typing-dot-color: #718096;
+
+    /* Error */
+    --error-bg: #fff5f5;
+    --error-color: #c53030;
+    --error-border: #fc8181;
+}
+
+/* Tema Oscuro (opcional) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --window-bg: #1a202c;
+        --header-bg: #2d3748;
+        --messages-bg: #1a202c;
+        --input-container-bg: #2d3748;
+        --input-bg: #2d3748;
+        --hover-bg: #4a5568;
+
+        --user-message-bg: #667eea;
+        --user-message-color: #ffffff;
+        --agent-message-bg: #2d3748;
+        --agent-message-color: #e2e8f0;
+
+        --avatar-bg: #4a5568;
+
+        --border-color: #4a5568;
+        --input-border: #4a5568;
+
+        --text-color: #e2e8f0;
+        --timestamp-color: #a0aec0;
+
+        --scrollbar-track: #2d3748;
+        --scrollbar-thumb: #4a5568;
+        --scrollbar-thumb-hover: #718096;
+
+        --typing-dot-color: #a0aec0;
+
+        --error-bg: #742a2a;
+        --error-color: #feb2b2;
+        --error-border: #fc8181;
+    }
+}
+
+/* Estilos globales */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--messages-bg);
+    color: var(--text-color);
+}
+
+#root {
+    width: 100%;
+    height: 100vh;
+}
+
+/* Utilidades */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}

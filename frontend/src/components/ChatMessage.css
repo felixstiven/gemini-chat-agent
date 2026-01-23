@@ -1,0 +1,84 @@
+/* Estilos para ChatMessage */
+
+.message {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-user {
+  flex-direction: row-reverse;
+}
+
+.message-avatar {
+  font-size: 32px;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--avatar-bg);
+  border-radius: 50%;
+}
+
+.message-content {
+  max-width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.message-text {
+  padding: 12px 16px;
+  border-radius: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.message-user .message-text {
+  background: var(--user-message-bg);
+  color: var(--user-message-color);
+  border-bottom-right-radius: 4px;
+}
+
+.message-agent .message-text {
+  background: var(--agent-message-bg);
+  color: var(--agent-message-color);
+  border-bottom-left-radius: 4px;
+}
+
+.message-timestamp {
+  font-size: 11px;
+  color: var(--timestamp-color);
+  padding: 0 8px;
+}
+
+.message-user .message-timestamp {
+  text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .message-content {
+    max-width: 85%;
+  }
+  
+  .message-avatar {
+    font-size: 24px;
+    width: 32px;
+    height: 32px;
+  }
+}
