@@ -1,4 +1,4 @@
-# 🤖 Agente Conversacional WOG
+# 🤖 Agente Conversacional 
 
 > Sistema de chat inteligente con Google Gemini y FastAPI
 
@@ -41,8 +41,8 @@ Agente conversacional inteligente desarrollado con **Google Gemini** y **FastAPI
 ### Paso 1: Clonar el repositorio
 
 ```bash
-git clone https://github.com/TU_USUARIO/NOMBRE_REPO.git
-cd NOMBRE_REPO
+git clone https://github.com/felixstiven/gemini-chat-agent
+cd gemini-chat-agent
 ```
 
 ### Paso 2: Crear entorno virtual
@@ -225,9 +225,9 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ## 👤 Autor
 
-**Tu Nombre**
-- GitHub: [@TU_USUARIO](https://github.com/TU_USUARIO)
-- LinkedIn: [Tu Perfil](https://linkedin.com/in/tu-perfil)
+**Dabinson Stiven Felix Alvis**
+- GitHub: [@felixstiven](https://github.com/felixstiven)
+- LinkedIn: [Stiven Felix](http://linkedin.com/in/stiven-felix-495273335/)
 
 ---
 
@@ -241,7 +241,7 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ## 📞 Contacto
 
-¿Preguntas o sugerencias? Abre un [issue](https://github.com/TU_USUARIO/NOMBRE_REPO/issues) o contáctame directamente.
+¿Preguntas o sugerencias? Abre un [issue](https://github.com/felixstiven/gemini-chat-agent/issues) o contáctame directamente.
 
 ---
 
