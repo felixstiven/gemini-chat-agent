@@ -1,0 +1,534 @@
+/**
+ * ═══════════════════════════════════════════════════════════════
+ * ESTILOS: LeadForm
+ * ═══════════════════════════════════════════════════════════════
+ * 
+ * DECISIONES DE DISEÑO:
+ * - Modal centrado con overlay oscuro
+ * - Diseño responsive (móvil y desktop)
+ * - Feedback visual claro (errores en rojo, loading, etc.)
+ * - Accesibilidad (focus states, contraste)
+ * - Animaciones suaves para mejor UX
+ */
+
+/* ═══════════════════════════════════════════════════════════
+   OVERLAY Y CONTENEDOR PRINCIPAL
+   ═══════════════════════════════════════════════════════════ */
+
+/**
+ * Overlay: Cubre toda la pantalla
+ * 
+ * DECISIONES:
+ * - position: fixed → Se queda fijo al hacer scroll
+ * - z-index: 1000 → Por encima de todo
+ * - display: flex → Para centrar el formulario
+ */
+.lead-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+
+    /* Animación de entrada */
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/**
+ * Backdrop: Fondo semi-transparente
+ * 
+ * DECISIONES:
+ * - position: absolute → Cubre todo el overlay
+ * - background: rgba → Negro con 50% opacidad
+ * - cursor: pointer → Indica que es clickeable
+ */
+.lead-form-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+/**
+ * Contenedor del formulario
+ * 
+ * DECISIONES:
+ * - position: relative → Para que esté por encima del backdrop
+ * - max-width: 500px → No muy ancho en desktop
+ * - width: 100% → Responsive en móvil
+ * - background: white → Contraste con el backdrop
+ * - border-radius: 12px → Esquinas redondeadas (moderno)
+ * - box-shadow → Profundidad visual
+ */
+.lead-form-container {
+    position: relative;
+    background: white;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+
+    /* Animación de entrada */
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   HEADER DEL FORMULARIO
+   ═══════════════════════════════════════════════════════════ */
+
+/**
+ * Header: Título y botón de cerrar
+ * 
+ * DECISIONES:
+ * - display: flex → Para alinear título y botón
+ * - justify-content: space-between → Título a la izquierda, botón a la derecha
+ * - border-bottom → Separación visual
+ * - position: sticky → Se queda fijo al hacer scroll
+ */
+.lead-form-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e0e0e0;
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.lead-form-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+/**
+ * Botón de cerrar (X)
+ * 
+ * DECISIONES:
+ * - background: transparent → Sin fondo por defecto
+ * - border: none → Sin borde
+ * - font-size: 24px → Grande para fácil click
+ * - cursor: pointer → Indica interactividad
+ * - hover → Feedback visual
+ */
+.close-button {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.close-button:hover {
+    background: #f5f5f5;
+    color: #333;
+}
+
+.close-button:active {
+    transform: scale(0.95);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   FORMULARIO
+   ═══════════════════════════════════════════════════════════ */
+
+.lead-form {
+    padding: 24px;
+}
+
+/**
+ * Grupo de campo (label + input + error)
+ * 
+ * DECISIONES:
+ * - margin-bottom: 20px → Espaciado entre campos
+ * - display: flex, flex-direction: column → Label arriba, input abajo
+ */
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/**
+ * Labels
+ * 
+ * DECISIONES:
+ * - font-weight: 500 → Semi-bold para destacar
+ * - color: #333 → Gris oscuro (buen contraste)
+ * - font-size: 0.9rem → Ligeramente más pequeño que el input
+ */
+.form-group label {
+    font-weight: 500;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+/**
+ * Inputs y Textareas
+ * 
+ * DECISIONES:
+ * - padding: 12px → Espacio cómodo para escribir
+ * - border: 1px solid #ddd → Borde sutil
+ * - border-radius: 6px → Esquinas redondeadas
+ * - font-size: 1rem → Tamaño legible
+ * - transition → Animación suave en hover/focus
+ */
+.form-group input,
+.form-group textarea {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    background: white;
+}
+
+/**
+ * Focus state
+ * 
+ * DECISIONES:
+ * - border-color: #4CAF50 → Verde de WOG
+ * - outline: none → Quitamos outline por defecto
+ * - box-shadow → Glow sutil
+ * 
+ * ACCESIBILIDAD:
+ * - Focus visible es crítico para navegación con teclado
+ * - El box-shadow reemplaza el outline por defecto
+ */
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+/**
+ * Hover state
+ * 
+ * DECISIÓN:
+ * - border-color más oscuro → Feedback visual
+ */
+.form-group input:hover:not(:focus),
+.form-group textarea:hover:not(:focus) {
+    border-color: #bbb;
+}
+
+/**
+ * Estado de error
+ * 
+ * DECISIONES:
+ * - border-color: #f44336 → Rojo para errores
+ * - background: #fff5f5 → Fondo rojo muy claro
+ */
+.form-group input.error,
+.form-group textarea.error {
+    border-color: #f44336;
+    background: #fff5f5;
+}
+
+.form-group input.error:focus,
+.form-group textarea.error:focus {
+    box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.1);
+}
+
+/**
+ * Estado disabled
+ * 
+ * DECISIONES:
+ * - background: #f5f5f5 → Gris claro
+ * - cursor: not-allowed → Indica que no se puede interactuar
+ * - opacity: 0.6 → Más transparente
+ */
+.form-group input:disabled,
+.form-group textarea:disabled {
+    background: #f5f5f5;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/**
+ * Textarea específico
+ * 
+ * DECISIONES:
+ * - resize: vertical → Solo puede cambiar altura
+ * - min-height → Altura mínima
+ */
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+    font-family: inherit;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   MENSAJES DE ERROR
+   ═══════════════════════════════════════════════════════════ */
+
+/**
+ * Mensaje de error por campo
+ * 
+ * DECISIONES:
+ * - color: #f44336 → Rojo para errores
+ * - font-size: 0.85rem → Más pequeño que el input
+ * - display: flex → Para alinear icono (si se agrega)
+ * - animation → Aparece suavemente
+ */
+.error-message {
+    color: #f44336;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px);
+    }
+
+    75% {
+        transform: translateX(4px);
+    }
+}
+
+/**
+ * Error general del formulario
+ * 
+ * DECISIONES:
+ * - background: #fff5f5 → Fondo rojo claro
+ * - border-left: 4px solid → Barra roja a la izquierda
+ * - padding → Espacio interno
+ */
+.submit-error {
+    background: #fff5f5;
+    border-left: 4px solid #f44336;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   BOTONES
+   ═══════════════════════════════════════════════════════════ */
+
+/**
+ * Contenedor de botones
+ * 
+ * DECISIONES:
+ * - display: flex → Botones en fila
+ * - gap: 12px → Espacio entre botones
+ * - justify-content: flex-end → Alineados a la derecha
+ */
+.form-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+/**
+ * Estilos base de botones
+ * 
+ * DECISIONES:
+ * - padding: 12px 24px → Espacio cómodo para click
+ * - border-radius: 6px → Esquinas redondeadas
+ * - font-weight: 500 → Semi-bold
+ * - cursor: pointer → Indica interactividad
+ * - transition → Animación suave
+ */
+.form-actions button {
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    font-family: inherit;
+}
+
+/**
+ * Botón primario (Enviar)
+ * 
+ * DECISIONES:
+ * - background: #4CAF50 → Verde de WOG
+ * - color: white → Texto blanco para contraste
+ * - hover → Más oscuro
+ * - active → Efecto de presión
+ */
+.btn-primary {
+    background: #4CAF50;
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #45a049;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+.btn-primary:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/**
+ * Botón secundario (Cancelar)
+ * 
+ * DECISIONES:
+ * - background: transparent → Sin fondo
+ * - border: 1px solid → Borde gris
+ * - color: #666 → Gris oscuro
+ */
+.btn-secondary {
+    background: transparent;
+    border: 1px solid #ddd;
+    color: #666;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: #f5f5f5;
+    border-color: #bbb;
+}
+
+/**
+ * Estado disabled de botones
+ * 
+ * DECISIONES:
+ * - opacity: 0.6 → Más transparente
+ * - cursor: not-allowed → Indica que no se puede click
+ */
+.form-actions button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE (MÓVIL)
+   ═══════════════════════════════════════════════════════════ */
+
+/**
+ * Ajustes para pantallas pequeñas
+ * 
+ * DECISIONES:
+ * - Formulario ocupa más espacio vertical
+ * - Padding reducido
+ * - Botones en columna (uno debajo del otro)
+ */
+@media (max-width: 600px) {
+    .lead-form-overlay {
+        padding: 10px;
+    }
+
+    .lead-form-container {
+        max-height: 95vh;
+        border-radius: 8px;
+    }
+
+    .lead-form-header {
+        padding: 16px;
+    }
+
+    .lead-form {
+        padding: 16px;
+    }
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    /* Botones en columna en móvil */
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .form-actions button {
+        width: 100%;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   ACCESIBILIDAD
+   ═══════════════════════════════════════════════════════════ */
+
+/**
+ * Focus visible para navegación con teclado
+ * 
+ * IMPORTANTE:
+ * - Usuarios que navegan con Tab necesitan ver dónde están
+ * - :focus-visible solo muestra focus cuando se usa teclado
+ */
+.close-button:focus-visible,
+.form-actions button:focus-visible {
+    outline: 2px solid #4CAF50;
+    outline-offset: 2px;
+}
+
+/**
+ * Reducir animaciones para usuarios con preferencia
+ * 
+ * ACCESIBILIDAD:
+ * - Algunos usuarios tienen problemas con animaciones
+ * - prefers-reduced-motion respeta su preferencia
+ */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

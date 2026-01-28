@@ -13,6 +13,7 @@
 import { useState, useEffect, useRef } from 'react';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
+import LeadForm from './LeadForm';
 import { enviarMensaje, limpiarHistorial } from '../services/api';
 import './ChatWindow.css';
 
@@ -22,6 +23,7 @@ export default function ChatWindow() {
     const [sessionId, setSessionId] = useState(null);
     const [cargando, setCargando] = useState(false);
     const [error, setError] = useState(null);
+    const [showLeadForm, setShowLeadForm] = useState(false);
 
     // Referencia para scroll automático
     const messagesEndRef = useRef(null);
@@ -71,9 +73,16 @@ export default function ChatWindow() {
             }
 
             // Agregar respuesta del agente a la UI
+            // Detectar si el agente quiere mostrar el formulario
+            let mensajeTexto = respuesta.respuesta;
+            if (mensajeTexto.includes('[MOSTRAR_FORMULARIO]')) {
+                setShowLeadForm(true);
+                mensajeTexto = mensajeTexto.replace('[MOSTRAR_FORMULARIO]', '').trim();
+            }
+
             const mensajeAgente = {
                 id: Date.now() + 1,
-                message: respuesta.respuesta,
+                message: mensajeTexto,
                 isUser: false,
                 timestamp: respuesta.timestamp
             };
@@ -112,6 +121,39 @@ export default function ChatWindow() {
         }
     };
 
+    // Función para manejar envío del formulario de leads
+    const handleLeadSubmit = async (formData) => {
+        try {
+            // Enviar datos al backend
+            const response = await fetch('http://localhost:8000/api/leads', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al enviar los datos');
+            }
+
+            // Cerrar formulario
+            setShowLeadForm(false);
+
+            // Mostrar mensaje de confirmación en el chat
+            setMensajes(prev => [...prev, {
+                id: Date.now(),
+                message: `✅ ¡Gracias ${formData.nombre}! Hemos recibido tu información.\n\nNuestro equipo se pondrá en contacto contigo en las próximas 24 horas.\n\n¿Hay algo más en lo que pueda ayudarte?`,
+                isUser: false,
+                timestamp: new Date().toISOString()
+            }]);
+
+        } catch (error) {
+            console.error('Error al enviar lead:', error);
+            throw error;
+        }
+    };
+
     return (
         <div className="chat-window">
             {/* Header */}
@@ -120,13 +162,22 @@ export default function ChatWindow() {
                     <span className="chat-icon">🤖</span>
                     <h1>Chat con Agente IA</h1>
                 </div>
-                <button
-                    className="clear-button"
-                    onClick={handleClearChat}
-                    title="Limpiar conversación"
-                >
-                    🗑️
-                </button>
+                <div className="header-buttons">
+                    <button
+                        className="contact-button"
+                        onClick={() => setShowLeadForm(true)}
+                        title="Solicitar contacto"
+                    >
+                        📋 Contacto
+                    </button>
+                    <button
+                        className="clear-button"
+                        onClick={handleClearChat}
+                        title="Limpiar conversación"
+                    >
+                        🗑️
+                    </button>
+                </div>
             </div>
 
             {/* Mensajes */}
@@ -161,6 +212,14 @@ export default function ChatWindow() {
                 onSendMessage={handleSendMessage}
                 disabled={cargando}
             />
+
+            {/* Formulario de Leads (condicional) */}
+            {showLeadForm && (
+                <LeadForm
+                    onSubmit={handleLeadSubmit}
+                    onClose={() => setShowLeadForm(false)}
+                />
+            )}
         </div>
     );
 }
