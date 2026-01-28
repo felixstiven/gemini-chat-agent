@@ -45,7 +45,7 @@ export default function ChatInput({ onSendMessage, disabled }) {
                 placeholder="Escribe tu mensaje..."
                 value={mensaje}
                 onChange={(e) => setMensaje(e.target.value)}
-                onKeyPress={handleKeyPress}
+                onKeyDown={handleKeyPress}
                 disabled={disabled}
                 autoFocus
             />

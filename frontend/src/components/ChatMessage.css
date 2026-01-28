@@ -12,6 +12,7 @@
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -75,10 +76,97 @@
   .message-content {
     max-width: 85%;
   }
-  
+
   .message-avatar {
     font-size: 24px;
     width: 32px;
     height: 32px;
   }
+}
+
+/* ========================================
+   ESTILOS PARA CONTENIDO MARKDOWN
+   ======================================== */
+
+.markdown-content {
+  line-height: 1.6;
+}
+
+/* Títulos */
+.markdown-content h2 {
+  font-size: 1.3em;
+  font-weight: 600;
+  margin: 16px 0 12px 0;
+  color: #1a1a1a;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 6px;
+}
+
+.markdown-content h3 {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin: 14px 0 10px 0;
+  color: #2c2c2c;
+}
+
+/* Listas */
+.markdown-content ul {
+  margin: 10px 0;
+  padding-left: 24px;
+}
+
+.markdown-content li {
+  margin: 6px 0;
+  line-height: 1.5;
+}
+
+/* Negritas */
+.markdown-content strong {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+/* Código inline */
+.markdown-content code {
+  background-color: #f5f5f5;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+/* Bloques de código */
+.markdown-content pre {
+  background-color: #f5f5f5;
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 12px 0;
+}
+
+.markdown-content pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* Párrafos */
+.markdown-content p {
+  margin: 8px 0;
+}
+
+/* Separadores */
+.markdown-content hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 16px 0;
+}
+
+/* Primer elemento sin margen superior */
+.markdown-content>*:first-child {
+  margin-top: 0;
+}
+
+/* Último elemento sin margen inferior */
+.markdown-content>*:last-child {
+  margin-bottom: 0;
 }

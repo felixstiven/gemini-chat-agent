@@ -3,14 +3,7 @@
  * ============================================
  * 
  * Este archivo centraliza TODAS las llamadas al backend FastAPI.
- * 
- * BENEFICIOS:
- * - Un solo lugar para cambiar la URL del backend
- * - Reutilizable en todos los componentes
- * - Fácil de testear
- * - Manejo de errores centralizado
- */
-
+ 
 // URL base del backend
 // En desarrollo: http://localhost:8000
 // En producción: cambiar a tu dominio
@@ -30,6 +23,9 @@ const API_BASE_URL = 'http://localhost:8000';
  * console.log(response.session_id);
  * ```
  */
+
+const API_BASE_URL = 'http://localhost:8000';
+
 export async function enviarMensaje(mensaje, sessionId = null) {
     try {
         // Hacer petición POST al backend

@@ -12,6 +12,7 @@
  */
 
 import './ChatMessage.css';
+import ReactMarkdown from 'react-markdown';
 
 export default function ChatMessage({ message, isUser, timestamp }) {
     return (
@@ -20,7 +21,14 @@ export default function ChatMessage({ message, isUser, timestamp }) {
                 {isUser ? '👤' : '🤖'}
             </div>
             <div className="message-content">
-                <div className="message-text">{message}</div>
+                {/* Si es del agente, renderiza markdown. Si es del usuario, texto plano */}
+                {isUser ? (
+                    <div className="message-text">{message}</div>
+                ) : (
+                    <div className="message-text markdown-content">
+                        <ReactMarkdown>{message}</ReactMarkdown>
+                    </div>
+                )}
                 {timestamp && (
                     <div className="message-timestamp">
                         {new Date(timestamp).toLocaleTimeString('es-CO', {
