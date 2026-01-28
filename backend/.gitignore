@@ -47,6 +47,7 @@ ENV/
 *.env
 config.local.py
 secrets.json
+credentials.json
 
 # ============================================================================
 # IDE / EDITOR
@@ -90,3 +91,7 @@ htmlcov/
 # ============================================================================
 Thumbs.db
 Desktop.ini
+
+
+# Python
+__pycache__/

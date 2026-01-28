@@ -24,9 +24,14 @@ COMPONENTES DE ESTE ARCHIVO:
 4. Endpoints de utilidad (health check, info)
 """
 
+# Cargar variables de entorno ANTES de todo
+from dotenv import load_dotenv
+load_dotenv()
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from api.routes import chat
+from api.routes import leads
 import sys
 from pathlib import Path
 
@@ -124,11 +129,16 @@ Esto mantiene el código organizado y escalable.
 """
 
 # Incluir las rutas del chat
-# Todas las rutas de chat.py se agregarán con el prefijo /api
 app.include_router(
     chat.router,
-    prefix="/api",  # Todas las rutas empiezan con /api
-    tags=["Chat"]   # Agrupación en la documentación
+    prefix="/api",
+    tags=["Chat"]
+)
+
+# Incluir las rutas de leads
+app.include_router(
+    leads.router,
+    tags=["Leads"]
 )
 
 
@@ -170,6 +180,7 @@ async def root():
         "documentacion_alternativa": "/redoc",
         "endpoints": {
             "chat": "/api/chat/message",
+            "leads": "/api/leads",
             "estadisticas": "/api/chat/stats/{session_id}",
             "limpiar": "/api/chat/clear/{session_id}",
             "sesiones": "/api/chat/sessions"

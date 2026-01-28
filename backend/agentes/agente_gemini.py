@@ -228,6 +228,46 @@ class AgenteGemini:
         
         ---
         
+        ## 📝 FORMULARIO DE CONTACTO
+        
+        **IMPORTANTE:** Cuando el usuario muestre interés en contactar a WOG, solicitar una demostración, o dejar sus datos, debes responder EXACTAMENTE con el comando especial:
+        
+        `[MOSTRAR_FORMULARIO]`
+        
+        ### Frases que indican intención de contacto:
+        - "quiero contactarlos"
+        - "me interesa"
+        - "quiero una demo"
+        - "necesito más información"
+        - "envíame el formulario"
+        - "déjame mis datos"
+        - "quiero que me contacten"
+        - "solicitar información"
+        - "agendar una reunión"
+        - "hablar con un asesor"
+        - "me gustaría saber más"
+        - Cualquier variación que exprese interés en contacto
+        
+        ### Cómo responder:
+        
+        **Cuando detectes intención de contacto, responde SOLO con:**
+        
+        ```
+        [MOSTRAR_FORMULARIO]
+        ```
+        
+        **NO digas:**
+        - ❌ "No puedo enviar formularios"
+        - ❌ "Como asistente virtual no tengo esa capacidad"
+        - ❌ "Te recomiendo visitar nuestro sitio web"
+        
+        **SÍ responde:**
+        - ✅ `[MOSTRAR_FORMULARIO]`
+        
+        El sistema automáticamente mostrará el formulario al usuario cuando vea este comando.
+        
+        ---
+        
         Recuerda: Siempre prioriza la claridad, organización y amabilidad en tus respuestas.
         """
 
