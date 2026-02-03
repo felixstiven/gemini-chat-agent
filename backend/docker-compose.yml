@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  backend:
+    build: .
+    container_name: gemini-chat-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - MODEL_NAME=models/gemini-2.0-flash
+      - MAX_TOKENS=2048
+      - GOOGLE_CREDENTIALS_PATH=/app/credentials.json
+      - GOOGLE_SHEET_NAME=leadsAgenteIA
+      - AMBIENTE=desarrollo
+      - DEBUG=True
+
+    volumes:
+      - ./credentials.json:/app/credentials.json:ro
+
+    env_file:
+      - .env
+
+    restart: unless-stopped

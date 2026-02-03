@@ -1,27 +1,6 @@
 """
 🚀 SERVIDOR PRINCIPAL - FASTAPI
 ================================
-
-Este es el CORAZÓN de la API. Aquí se configura todo el servidor.
-
-CONCEPTO CLAVE: Aplicación FastAPI
------------------------------------
-FastAPI es un framework web que:
-1. Recibe peticiones HTTP (del frontend)
-2. Las procesa (llama a tus funciones)
-3. Retorna respuestas HTTP (al frontend)
-
-Piensa en esto como un "recepcionista" que:
-- Recibe llamadas (requests)
-- Las dirige al departamento correcto (routes)
-- Devuelve la respuesta (response)
-
-COMPONENTES DE ESTE ARCHIVO:
------------------------------
-1. Creación de la app FastAPI
-2. Configuración de CORS (permisos para el frontend)
-3. Inclusión de rutas (endpoints del chat)
-4. Endpoints de utilidad (health check, info)
 """
 
 # Cargar variables de entorno ANTES de todo
@@ -46,7 +25,7 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 app = FastAPI(
     # Metadata que aparece en la documentación automática
-    title="🤖 API Agente WOG",
+    title="🤖 Asistente de Stiven Felix",
     description="""
     API REST para agente conversacional con Google Gemini.
     

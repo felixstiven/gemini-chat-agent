@@ -64,22 +64,13 @@ class SheetsService:
         
         SCOPES:
         - spreadsheets: Leer y escribir en hojas de cálculo
+        Credenciales:
+        -Opcion 1: Variable de entorno GOOGLE_CREDENTIALS_BASE64 (Produccion)
+        -opcion 2: Archivo credentials.json en la raiz del proyecto (Desarrollo)
         """
         try:
-            # Ruta al archivo de credenciales
-            creds_path = os.getenv(
-                'GOOGLE_CREDENTIALS_PATH',
-                'credentials.json'  # Default
-            )
-            
-            # Verificar si el archivo existe
-            if not os.path.exists(creds_path):
-                logger.warning(f"⚠️ Archivo de credenciales no encontrado: {creds_path}")
-                logger.warning("⚠️ Google Sheets NO está configurado. El endpoint /api/leads no funcionará.")
-                logger.warning("⚠️ Sigue la guía de configuración para habilitar Google Sheets.")
-                self.client = None
-                self.sheet = None
-                return
+            import base64
+            import json
             
             # Nombre de la hoja de cálculo
             sheet_name = os.getenv(
@@ -89,7 +80,7 @@ class SheetsService:
             
             # DEBUG: Verificar que se carga correctamente
             print(f"🔍 DEBUG: GOOGLE_SHEET_NAME = {sheet_name}")
-            print(f"🔍 DEBUG: credentials path = {creds_path}")
+
             
             # Scopes necesarios
             scopes = [
@@ -97,12 +88,63 @@ class SheetsService:
                 'https://www.googleapis.com/auth/drive'
             ]
             
-            print("🔍 DEBUG: Autenticando con Google...")
-            # Autenticar
-            creds = Credentials.from_service_account_file(
-                creds_path,
-                scopes=scopes
-            )
+            #Opcion 1: Variable de entorno GOOGLE_CREDENTIALS_BASE64(produccion)
+            credentials_base64 = os.getenv('GOOGLE_CREDENTIALS_BASE64')
+            creds = None  # Inicializar variable
+            
+            if credentials_base64:
+                print("🔍 DEBUG: Usando credenciales desde GOOGLE_CREDENTIALS_BASE64")
+
+                try:
+                    #Decodificar base64
+                    credentials_json = base64.b64decode(credentials_base64).decode('utf-8')
+                    #Cargar credenciales desde JSON
+                    credentials_dict = json.loads(credentials_json)
+                    #Crear credenciales desde diccionario
+                    creds = Credentials.from_service_account_info(
+                        credentials_dict,
+                        scopes=scopes
+                    )
+                    print("✅ DEBUG: Credenciales decodificadas correctamente desde base64")
+                except Exception as e:
+                    print(f"⚠️ DEBUG: Error al decodificar GOOGLE_CREDENTIALS_BASE64: {e}")
+                    print("🔍 DEBUG: Intentando con archivo credentials.json...")
+                    creds = None  # Asegurar que es None para intentar archivo
+
+            #Opcion 2: Archivo credentials.json en la raiz del proyecto (Desarollo)        
+            if creds is None:
+                creds_path = os.getenv(
+                    'GOOGLE_CREDENTIALS_PATH_JSON',
+                    'credentials.json' #Default
+                )
+
+                print(f"🔍 DEBUG: Usando credenciales desde archivo: {creds_path}")
+
+                #Validar que el archivo exista
+                if not os.path.exists(creds_path):
+                    print(f"❌ DEBUG: Archivo de credenciales no encontrado: {creds_path}")
+                    logger.error(f"❌ Archivo de credenciales no encontrado: {creds_path}")
+                    logger.error("❌ Google Sheets NO está disponible")
+                    self.client = None
+                    self.sheet = None
+                    return
+
+                # Autenticar desde archivo
+                creds = Credentials.from_service_account_file(
+                    creds_path,
+                    scopes=scopes
+                )
+                print("✅ DEBUG: Credenciales cargadas correctamente desde archivo")
+
+            # Si llegamos aquí, creds debería tener valor
+            if creds is None:
+                print("❌ DEBUG: No se pudieron cargar credenciales")
+                logger.error("❌ No se pudieron cargar credenciales de Google")
+                self.client = None
+                self.sheet = None
+                return
+
+            print("🔍 DEBUG: Creando cliente gspread...")
             
             print("🔍 DEBUG: Creando cliente gspread...")
             # Crear cliente

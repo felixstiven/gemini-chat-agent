@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+# Archivos sensibles
+.env
+.env.local
+*.env
+credentials.json
+secrets.json
+# Git
+.git
+.gitignore
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+# Logs y bases de datos
+*.log
+*.sqlite
+*.db
+# Conversaciones guardadas
+conversacion_*.json
+*.conversation.json
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+# Documentación personal
+docs/
+notas/
+*.md.personal
+# Sistema operativo
+.DS_Store
+Thumbs.db
+Desktop.ini
