@@ -6,7 +6,7 @@ load_dotenv()
 class Settings:
     #Google Gemini (Gratis)
     GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-    MODEL_NAME = os.getenv("MODEL_NAME", "gemini-1.5-flash")
+    MODEL_NAME = os.getenv("MODEL_NAME", "models/gemini-2.0-flash")
     MAX_TOKENS = int(os.getenv("MAX_TOKENS", "1024"))
 
     AMBIENTE = os.getenv("AMBIENTE", "desarollo")
