@@ -67,7 +67,7 @@ app.add_middleware(
         "http://localhost:5173",  # Vite (React dev server)
         "http://localhost:3000",  # Create React App
         "http://127.0.0.1:5173",  # Alternativa de localhost
-        "https://perfilprofesional-production-2e21.up.railway.app",
+        "https://perfilprofesional-production-2e21.up.railway.app/"
         
     ],
     

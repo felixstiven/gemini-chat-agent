@@ -24,7 +24,7 @@ const API_BASE_URL = 'http://localhost:8000';
  * ```
  */
 
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = 'https://gemini-chat-backend-bhjk.onrender.com';
 
 export async function enviarMensaje(mensaje, sessionId = null) {
     try {

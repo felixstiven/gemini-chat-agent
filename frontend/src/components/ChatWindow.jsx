@@ -42,7 +42,7 @@ export default function ChatWindow() {
         setMensajes([
             {
                 id: 'welcome',
-                message: '¡Hola! Soy tu asistente virtual. ¿En qué puedo ayudarte hoy?',
+                message: '¡Hola! 👋 Soy **Stiven Felix**, desarrollador Full-Stack.\n\nEstoy aquí para contarte sobre mi experiencia, proyectos y habilidades.\n\n¿En qué puedo ayudarte? 😊',
                 isUser: false,
                 timestamp: new Date().toISOString()
             }
@@ -160,7 +160,7 @@ export default function ChatWindow() {
             <div className="chat-header">
                 <div className="chat-title">
                     <span className="chat-icon">🤖</span>
-                    <h1>Chat con Agente IA</h1>
+                    <h1>Stiven Felix</h1>
                 </div>
                 <div className="header-buttons">
                     <button
