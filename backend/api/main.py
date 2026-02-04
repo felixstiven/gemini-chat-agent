@@ -80,13 +80,13 @@ app.add_middleware(
     # -----------------------
     # ["*"] = todos (GET, POST, PUT, DELETE, etc.)
     # También puedes especificar: ["GET", "POST"]
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     
     # HEADERS PERMITIDOS
     # ------------------
     # ["*"] = todos los headers
     # Incluye: Content-Type, Authorization, etc.
-    allow_headers=["*"],
+     allow_headers=["Content-Type", "Authorization"], 
 )
 
 
