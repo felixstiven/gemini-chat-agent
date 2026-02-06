@@ -17,6 +17,8 @@ import LeadForm from './LeadForm';
 import { enviarMensaje, limpiarHistorial } from '../services/api';
 import './ChatWindow.css';
 
+
+
 export default function ChatWindow() {
     // ESTADO
     const [mensajes, setMensajes] = useState([]);
